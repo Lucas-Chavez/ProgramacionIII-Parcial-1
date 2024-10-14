@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  mutant-api:
+    build: .  # Construye la imagen a partir del Dockerfile en el directorio actual
+    ports:
+      - "8080:8080"  # Mapea el puerto 8080 del contenedor al puerto 8080 de tu máquina local
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:h2:mem:testdb  # Conexión a la base de datos H2 en memoria
+      SPRING_H2_CONSOLE_ENABLED: "true"  # Habilita la consola H2
+      SPRING_DATASOURCE_DRIVER-CLASS-NAME: org.h2.Driver  # Driver para H2
+      SPRING_DATASOURCE_USERNAME: sa  # Usuario para la base de datos
+      SPRING_DATASOURCE_PASSWORD: ""  # Contraseña para la base de datos (vacío para H2)
+    networks:
+      - mutant-network  # Conecta el servicio a una red personalizada
+
+networks:
+  mutant-network:  # Definición de la red personalizada
